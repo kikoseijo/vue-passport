@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-default">
-      <div class="container-fluid">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><router-link to="/login" v-if="!cur_user">Login</router-link></li>
-            <li><a to="/logout" @click="logOut" v-if="cur_user">logout</a></li>
+            <li><a href="#stye" @click="logOut" v-if="cur_user">logout</a></li>
             <li><router-link to="/oauth">Passport</router-link></li>
           </ul>
           <ul v-if="cur_user" class="nav navbar-nav navbar-right">
@@ -38,9 +38,18 @@
     <div class="container-fluid">
       <router-view></router-view>
     </div>
-      <code>
-        {{ cur_user }}
-      </code>
+    <div class="container text-left">
+      <a class="btn btn-primary" role="button" data-toggle="collapse"
+        href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show debug</a>
+      <div class="collapse" id="collapseExample">
+        <div class="well">
+          <span class="label label-info pull-right">Debug</span>
+          <pre v-highlightjs="cur_user">
+            <code class="json"></code>
+          </pre>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,20 +58,26 @@
 export default {
   data () {
     return {
-      cur_user: this.$store.state.user
+      cur_user: {}
     }
   },
   created () {
     // do something after creating vue instance
-    if (!this.cur_user) {
+    console.log('[App.vue] created()')
+
+    if (!this.$store.state.user) {
       const storedUser = this.$localStorage.get('user')
       if (storedUser && storedUser.id > 0) {
         this.$store.commit('setUser', { user: storedUser })
+        this.cur_user = storedUser
+        console.log('this.$store.state.user', this.$store.state.user)
         window.axios.defaults.headers.common['Authorization'] = this.$localStorage.get('token')
       } else {
         console.log('Needs login')
         this.$router.push('/login')
       }
+    } else {
+      this.cur_user = this.$store.state.user
     }
   },
   methods: {

@@ -1,12 +1,18 @@
 <template>
   <div>
+    <div class="page-header">
+      <h1>Login <small>Using password grant client</small></h1>
+    </div>
+    <div class="alert alert-warning alert-dismissible" role="alert" v-if="errors">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{errors}}
+    </div>
     <login
       :api-url="apiUrl"
       :secret="secret"
       @success="handleLogin"
       @failed="handleErrors">
     </login>
-    <div class="alert alert-error" v-if="errors">{{errors}}</div>
   </div>
 </template>
 

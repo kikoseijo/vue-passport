@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueLocalStorage from 'vue-localstorage'
 import Vuex from 'vuex'
+import VueHighlightJS from 'vue-highlightjs'
 import routes from './routes/route'
 import App from './App.vue'
 
 require('./bootstrap')
 
+Vue.use(VueHighlightJS)
 Vue.use(VueLocalStorage)
 Vue.use(VueRouter)
 Vue.use(Vuex)
