@@ -1,31 +1,38 @@
 <template>
-  <form @submit.prevent="handleLogin">
-      <label class="label" v-text="labels.user"></label>
-      <p :class="controlClass">
-        <input
+  <div class="row login-view">
+    <div class="col-sm-6 col-sm-offset-3">
+      <slot>
+
+      </slot>
+      <form @submit.prevent="handleLogin">
+        <div :class="controlClass">
+          <label class="control-label" v-text="labels.user"></label>
+          <input
           :class="inputClass"
           type="text"
           :placeholder="userPlaceholder"
           v-model="login.user">
-      </p>
-      <label class="label"  v-text="labels.password"></label>
-      <p :class="controlClass">
-        <input
-         :class="inputClass"
-         type="password"
-         :placeholder="passwordPlaceholder"
-         v-model="login.password"
-        >
-      </p>
-      <p class="control">
-        <button
+        </div>
+        <div :class="controlClass">
+          <label class="control-label"  v-text="labels.password"></label>
+          <input
+          :class="inputClass"
+          type="password"
+          :placeholder="passwordPlaceholder"
+          v-model="login.password">
+        </div>
+        <p class="control">
+          <button
           type="submit"
-          class="button is-primary"
+          class="btn btn-primary btn-block btn-lg"
           v-text="labels.button"
           :disabled="loading"
-        ></button>
-      </p>
-  </form>
+          ></button>
+        </p>
+      </form>
+
+    </div>
+  </div>
 </template>
 
 <script>
@@ -50,12 +57,12 @@ export default {
 
     controlClass: {
       type: String,
-      default: 'control'
+      default: 'form-group'
     },
 
     inputClass: {
       type: String,
-      default: 'input'
+      default: 'form-control'
     },
 
     apiUrl: {
@@ -146,3 +153,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .login-view {
+    margin-bottom: 34px;
+  }
+</style>

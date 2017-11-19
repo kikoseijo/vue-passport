@@ -19,8 +19,12 @@
             <li><a href="#stye" @click="logOut" v-if="cur_user">logout</a></li>
             <li><router-link to="/oauth">Passport</router-link></li>
           </ul>
-          <ul v-if="cur_user" class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a role="button" data-toggle="collapse"
+                href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show debug</a>
+            </li>
+            <li v-if="cur_user && cur_user.id>0" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 {{ cur_user.name }} <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -36,16 +40,15 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <router-view></router-view>
+      <router-view :current-user="cur_user"></router-view>
     </div>
     <div class="container text-left">
-      <a class="btn btn-primary" role="button" data-toggle="collapse"
-        href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show debug</a>
+
       <div class="collapse" id="collapseExample">
         <div class="well">
           <span class="label label-info pull-right">Debug</span>
-          <pre v-highlightjs="cur_user">
-            <code class="json"></code>
+          <pre v-highlightjs="">
+            <code class="javascript">{{cur_user}}</code>
           </pre>
         </div>
       </div>
@@ -79,12 +82,17 @@ export default {
     } else {
       this.cur_user = this.$store.state.user
     }
+
+    this.$on('userChange', function (updatedUser) {
+      this.cur_user = updatedUser
+    })
   },
   methods: {
     logOut () {
       this.$localStorage.remove('user')
       this.$localStorage.remove('token')
       this.$store.commit('setUser', { user: null })
+      this.cur_user = null
       this.$router.push('/login')
     }
   }
@@ -96,7 +104,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 

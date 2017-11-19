@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container text-left">
     <clients></clients>
     <authorized-clients></authorized-clients>
     <personal-access-tokens></personal-access-tokens>
