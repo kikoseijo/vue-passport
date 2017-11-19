@@ -15,8 +15,8 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader'
-        ],
-      },      {
+        ]
+      }, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -41,7 +41,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.join(__dirname, './src/components')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },

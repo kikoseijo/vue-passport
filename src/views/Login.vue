@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Login from './../components/passport/Login.vue'
+import Login from '@/passport/Login.vue'
 
 export default {
   // props: ['cur_user'],

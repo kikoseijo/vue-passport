@@ -7,9 +7,9 @@
 </template>
 <script>
 
-import Clients from './../components/passport/Clients.vue'
-import AuthorizedClients from './../components/passport/AuthorizedClients.vue'
-import PersonalAccessTokens from './../components/passport/PersonalAccessTokens.vue'
+import Clients from '@/passport/Clients.vue'
+import AuthorizedClients from '@/passport/AuthorizedClients.vue'
+import PersonalAccessTokens from '@/passport/PersonalAccessTokens.vue'
 
 export default {
   components: {
