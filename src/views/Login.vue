@@ -41,7 +41,7 @@ export default {
       this.errors = null
       this.$store.commit('setUser', { user: payload.authUser.data })
       // this.cur_user = payload.authUser.data
-      this.$emmit('userChange', payload.authUser.data)
+      this.$emit('user-change', payload.authUser.data)
       this.$localStorage.set('user', payload.authUser.data)
       this.$localStorage.set('token', payload.headers.Authorization)
       this.$localStorage.set('access_token', payload.authUser.access_token)

@@ -40,7 +40,7 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <router-view :current-user="cur_user"></router-view>
+      <router-view :current-user="cur_user" @user-change="handleUserChange"></router-view>
     </div>
     <div class="container text-left">
 
@@ -84,6 +84,7 @@ export default {
     }
 
     this.$on('userChange', function (updatedUser) {
+      console.log('updatedUser', updatedUser)
       this.cur_user = updatedUser
     })
   },
@@ -94,6 +95,10 @@ export default {
       this.$store.commit('setUser', { user: null })
       this.cur_user = null
       this.$router.push('/login')
+    },
+    handleUserChange (newUser) {
+      console.log('handleUserChange(newUser)')
+      this.cur_user = newUser
     }
   }
 }
